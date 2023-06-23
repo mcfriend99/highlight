@@ -1,0 +1,22 @@
+{
+  "name": "highlight", 
+  "version": "1.0.0", 
+  "description": "A simple sytax highlighter plugin for Blade's built-in markdown module.", 
+  "homepage": "https://github.com/mcfriend99/highlight.git", 
+  "tags": [
+    "highlight", 
+    "markdown", 
+    "plugin", 
+    "blade", 
+    "wire", 
+    "design",
+    "syntax-highlight",
+    "html"
+  ], 
+  "author": "Richard Ore <eqliqandfriends@gmail.com>", 
+  "license": "MIT", 
+  "sources": [
+    "https://nyssa.bladelang.com"
+  ], 
+  "deps": {}
+}
