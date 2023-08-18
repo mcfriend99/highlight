@@ -139,7 +139,7 @@ def highlight_blade_repl(text, classes) {
       line = line.replace('<', '&lt;').replace('>', '&gt;')
       var lower = line.lower()
 
-      if lower.starts_with('unhandled exception') or 
+      if lower.starts_with('unhandled') or 
         lower.starts_with('syntaxerror at') or 
         lower.starts_with('illegal state:') or 
         lower.match('/^\s{2,}stacktrace/') or
