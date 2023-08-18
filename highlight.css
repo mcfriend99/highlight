@@ -46,3 +46,7 @@
 [class^=language-] .p {
   color: #c4c4c4;
 }
+
+[class^=language-] .e {
+  color: #af0707;
+}
