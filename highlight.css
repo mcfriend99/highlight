@@ -5,8 +5,11 @@
  * 
  * Copy this stylesheet into your project to use te default style. 
  */
+ [class^=language-] {
+  position: relative;
+ }
 
-[class^=language-] .s {
+ [class^=language-] .s {
   color: #690;
 }
 
@@ -14,7 +17,7 @@
   color: #00bcd4;
 }
 
-[class^=language-] .c {
+[class^=language-] .x {
   color: #ff9800;
 }
 

@@ -1,7 +1,7 @@
 var default_classes = {
   string: 's',
   interpolation: 'i',
-  constant: 'c',
+  constant: 'x',
   method: 'm',
   function: 'f',
   keyword: 'k',
