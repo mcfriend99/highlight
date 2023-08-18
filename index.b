@@ -48,10 +48,16 @@ def highlight_blade(text, classes) {
     replace('/\\b(${blade_keywords})\\b/', '<_k>$1</_k>').
     # comments
     replace('/(#[^\\n]*)/', '<_w>$1</_w>').
-    replace('/(\\/\\*(?:(?!\\/\\*|\\*\\/).|(?R))*\\*\\/)/', '<_w>$1</_w>')
+    replace('/(\/\*(?:(?!\/\*|\*\/).|(?R))*\*\/)/ms', '<_w1>$1</_w1>')
 
   # clean up comments
   var comments = text.matches('/<_w>((.|\\n)*?)<\/_w>/')
+  if comments {
+    for comment in comments[1] {
+      text = text.replace(comment, comment.replace('/<\/?_([^>]+)>/', ''), false)
+    }
+  }
+  comments = text.matches('/<_w1>((.|\\n)*?)<\/_w1>/')
   if comments {
     for comment in comments[1] {
       text = text.replace(comment, comment.replace('/<\/?_([^>]+)>/', ''), false)
@@ -76,10 +82,10 @@ def highlight_blade(text, classes) {
   return text.replace('/<_q>(.*?)<\/_q>/', '<span class="${classes.string}">$1</span>').
               replace('/<_i>(.*?)<\/_i>/', '<span class="${classes.interpolation}">$1</span>').
               replace('/<_c>(.*?)<\/_c>/', '<span class="${classes.constant}">$1</span>').
-              replace('/<_m>(.*?)<\/_m>/', '<span class="${classes.method};font-style:italic">$1</span>').
+              replace('/<_m>(.*?)<\/_m>/', '<span class="${classes.method}">$1</span>').
               replace('/<_f>(.*?)<\/_f>/', '<span class="${classes.function}">$1</span>').
               replace('/<_k>(.*?)<\/_k>/', '<span class="${classes.keyword}">$1</span>').
-              replace('/<_w>((.|\\n)*?)<\/_w>/', '<span class="${classes.comment}">$1</span>').
+              replace('/<_w1?>((.|\\n)*?)<\/_w1?>/', '<span class="${classes.comment}">$1</span>').
               replace('/<_o>(.*?)<\/_o>/', '<span class="${classes.operator}">$1</span>').
               replace('/<_n>(.*?)<\/_n>/', '<span class="${classes.number}">$1</span>')
 }

@@ -20,6 +20,7 @@
 
 [class^=language-] .m {
   color: #ff5722;
+  font-style: italic;
 }
 
 [class^=language-] .f {
