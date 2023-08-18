@@ -38,21 +38,24 @@ var md = markdown({
 
 That's all that's required. Code fences and code blocks specifying any of the supported languages will automatically get highlighted.
 
+To use the default theme, add the accompanying `highlight.css` as a stylesheet or its contents to an existing stylesheet in your project.
+
 ## Changing the theme
 
-`highlight` allows you to customize the theme for syntax highlighting easily by passing a dictionary of token colors to the `highlight()` function when initialized.
+`highlight` allows you to customize the theme for syntax highlighting easily by passing a dictionary of token CSS classes to the `highlight()` function when initialized.
 
-The supported token colors are:
+The supported token classes are:
 
-- `string`: The color of strings including their surrounding quotes.
-- `interpolation`: The color of interpolations (expressions) within strings if supported by the language.
-- `constant`: The color of language constants. For example, for Blade this includes `false` and `nil` if supported by the language.
-- `method`: The color of method called on an object if supported by the language. E.g. `instance.method_call()`.
-- `function`: The color of functions declaration and call if supported by the language.
-- `keyword`: The color of language keywords if supported by the language. For Blade, this includes `if`, `iter` etc.
-- `comment`: The color of both single and multiline comments for a language if supported by the language.
-- `operator`: The color of operators if supported by the language such as `+`, `-` etc.
-- `number`: The color of numbers if supported by the language such as `10.5`, `0x43` etc.
+- `string`: The CSS class for strings including their surrounding quotes.
+- `interpolation`: The CSS class for interpolations (expressions) within strings if supported by the language.
+- `constant`: The CSS class for language constants. For example, for Blade this includes `false` and `nil` if supported by the language.
+- `method`: The CSS class for method called on an object if supported by the language. E.g. `instance.method_call()`.
+- `function`: The CSS class for functions declaration and call if supported by the language.
+- `keyword`: The CSS class for language keywords if supported by the language. For Blade, this includes `if`, `iter` etc.
+- `comment`: The CSS class for both single and multiline comments for a language if supported by the language.
+- `operator`: The CSS class for operators if supported by the language such as `+`, `-` etc.
+- `number`: The CSS class for numbers if supported by the language such as `10.5`, `0x43` etc.
+- `prompt`: The CSS class for Blade REPL prompts
 
 For example:
 
@@ -67,13 +70,13 @@ var md = markdown({
 })
 ```
 
-You should see the color of number highlighted change to the given color.
+You should see the CSS class for number highlighted change to the given CSS class.
 
 ## Supported Languages
 
 `highlight` currently supports the listed language and markups with their respective code fence and code block hints:
 
-- Blade &mdash; `blade`
+- Blade &mdash; `blade`, `blade-repl` (The REPL mode handles the `%>` and `..` REPL characters) and should be used in the to highlight Blade REPL mode codes.
 - HTML &mdash; `html`, `html5`
 - Wire &mdash; `wire`
 - JSON &mdash; `json`, `json5`
