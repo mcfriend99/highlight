@@ -14,9 +14,9 @@ var default_classes = {
 }
 
 var blade_keywords = '|'.join([
-  'as', 'assert', 'break', 'catch', 'class', 'continue', 
-  'def', 'default', 'die', 'do', 'echo', 'else', 'finally', 'for', 
-  'if', 'import', 'in', 'iter', 'return', 'static', 'try', 
+  'as', 'assert', 'break', 'catch', 'class', 'continue',
+  'def', 'default', 'do', 'echo', 'else', 'for', 'if',
+  'import', 'in', 'iter', 'raise', 'return', 'static',
   'using', 'var', 'when', 'while',
 ])
 
@@ -71,10 +71,10 @@ def highlight_blade(text, classes) {
   if quotes {
     for quote in quotes[1] {
       text = text.replace(
-        quote, 
+        quote,
         quote.replace('/<\/?_([^>]+)>/', '').
           # interpolation
-          replace('/(\\$\{[^}]+\})/m', '<_i>$1</_i>'), 
+          replace('/(\\$\{[^}]+\})/m', '<_i>$1</_i>'),
         false
       )
     }
@@ -99,7 +99,7 @@ def highlight_html5(text, lang, classes) {
     iter var i = 0; i < tags[0].length(); i++ {
       var content = tags[1][i].replace('/([a-zA-Z_\-0-9]+)(?=[=])/', '<^a>$1</^a>').
                         replace('/((?<=((?<!\=)\=))${_quote_re[1,-2]})/', '<^v>$1</^v>').
-                        replace('/((?<=((?<!\=)\=))[0-9]+\.?[0-9]*)/', '<^n>$1</^n>') 
+                        replace('/((?<=((?<!\=)\=))[0-9]+\.?[0-9]*)/', '<^n>$1</^n>')
       text = text.replace(tags[0][i], '<span class="${classes.keyword}">&lt;${content}&gt;</span>', false)
     }
   }
@@ -116,9 +116,9 @@ def highlight_html5(text, lang, classes) {
   var comments = text.matches('/<(!--.*?--)>/sm')
   if comments {
     iter var i = 0; i < comments[0].length(); i++ {
-      result = result.replace(comments[0][i], 
-        '<span class="${classes.comment}">&lt;' + 
-        comments[1][i].replace('<', '&lt;').replace('>', '&gt;') + 
+      result = result.replace(comments[0][i],
+        '<span class="${classes.comment}">&lt;' +
+        comments[1][i].replace('<', '&lt;').replace('>', '&gt;') +
         '&gt;</span>'
       )
     }
@@ -128,7 +128,7 @@ def highlight_html5(text, lang, classes) {
 }
 
 def highlight_json(text, classes) {
-  return text.replace('/((?<![a-z])("(?:[^"\\\\]|\\\\.)*"))/', '<span class="${classes.string}">$1</span>')
+  return text.replace('/("(?:[^"\\\\]|\\.)*")/', '<span class="${classes.operator}">$1</span>')
 }
 
 def highlight_blade_repl(text, classes) {
@@ -139,9 +139,9 @@ def highlight_blade_repl(text, classes) {
       line = line.replace('<', '&lt;').replace('>', '&gt;')
       var lower = line.lower()
 
-      if lower.starts_with('unhandled') or 
-        lower.starts_with('syntaxerror at') or 
-        lower.starts_with('illegal state:') or 
+      if lower.starts_with('unhandled') or
+        lower.starts_with('syntaxerror at') or
+        lower.starts_with('illegal state:') or
         lower.match('/^\s{2,}stacktrace/') or
         lower.match('/^\s{2,}&lt;repl&gt;:\d+\s-&gt;\s/') {
         return '<span class="${classes.error}">${line}</span>'
@@ -165,15 +165,15 @@ def highlight(classes) {
 
   return @(text, lang) {
     using lang {
-      when 'blade' 
+      when 'blade'
         return highlight_blade(text, classes)
-      when 'blade-repl' 
+      when 'blade-repl'
         return highlight_blade_repl(text, classes)
-      when 'html', 'html5', 'wire' 
+      when 'html', 'html5', 'wire'
         return highlight_html5(text, lang, classes)
       when 'json', 'json5'
         return highlight_json(text, classes)
-      default 
+      default
         return text.replace('<', '&lt;').replace('>', '&gt;')
     }
   }

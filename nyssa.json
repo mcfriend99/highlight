@@ -1,6 +1,6 @@
 {
   "name": "highlight", 
-  "version": "1.0.4", 
+  "version": "1.0.0", 
   "description": "A simple sytax highlighter plugin for Blade's built-in markdown module.", 
   "homepage": "https://github.com/mcfriend99/highlight.git", 
   "tags": [
